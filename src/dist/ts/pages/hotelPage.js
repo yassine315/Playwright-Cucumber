@@ -5,6 +5,7 @@ export class HotelPage {
         this.navigationBar = page.getByRole('navigation', { name: 'Main navigation' }).getByRole('list');
         this.signup = page.getByRole('button', { name: 'Open My account & Rewards menu' });
         this.bookingEngineOverlay = page.locator('.sticky-booking-engine');
+        this.destinationInput = page.locator('input[id="search.destination.userlang"]');
     }
     async visit() {
         await this.page.goto("https://ibis.accor.com/en/ibis-styles.html");
@@ -39,10 +40,10 @@ export class HotelPage {
             navigationBarBox.y < overlayBox.y + overlayBox.height &&
             navigationBarBox.y + navigationBarBox.height > overlayBox.y;
         if (isOverlapping && overlayZIndex >= navigationBarZIndex) {
-            console.log('Signup is hidden by the overlay.');
+            console.log('navigationBar is hidden by the overlay.');
             return false;
         }
-        console.log('Signup is visible.');
+        console.log('navigationBar is visible.');
         return true;
     }
     // Méthode utilitaire pour récupérer le z-index d'un élément
@@ -63,5 +64,23 @@ export class HotelPage {
     }
     async getPage() {
         return await this.page;
+    }
+    async typeDestination(destination) {
+        for (const char of destination) {
+            await this.destinationInput.type(char);
+            await this.page.waitForTimeout(100); // Petite pause pour chaque frappe
+        }
+    }
+    async selectHotelDestination() {
+        await this.page.waitForSelector('ul#destinationSuggest', { timeout: 5000 });
+        await this.page.click('ul#destinationSuggest li:first-child');
+    }
+    async selectDate(date) {
+        await this.page.click('input.ads-date-picker__input-start');
+        // Attendre que le calendrier soit visible
+        await this.page.waitForSelector('.dp__calendar', { timeout: 5000 });
+        // Sélectionner la date de fin du mois (28 ou 29 février)
+        const firstDay = this.page.locator('div[data-test="' + date + ' 00:00:00 GMT+0000 (GMT)"]'); // Date spécifique
+        await firstDay.nth(0).click();
     }
 }
