@@ -3,6 +3,7 @@
         "formatOptions": {
             "snippetInterface": "synchronous"
         },
-        "import" : ["src/dist/*"]
+        "import" : ["src/dist/*"],
+        "timeout": 100000
     }
 }

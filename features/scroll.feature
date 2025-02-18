@@ -3,7 +3,13 @@ Feature: Hotel page navigation visibility
   I want the hotel navigation to behave based on my scroll direction
   So that my browsing experience is intuitive
 
-  Scenario: Navigation hidden when scrolling down
+  Scenario Outline: Navigation visibility when scrolling
     Given I am on the hotel page
-    When I scroll down on the page
-    Then the hotel navigation should not be displayed
+    When I scroll "<direction>" on the page
+    Then the hotel navigation should "<visibility>" be displayed
+
+    Examples:
+      | direction | visibility |
+      | down      | not        |
+      | up        |            |
+

@@ -83,4 +83,8 @@ export class HotelPage {
   async scrollUp(): Promise<void> {
     await this.page.evaluate(() => window.scrollBy(0, -window.innerHeight));
   }
+
+  async getPage(): Promise<Page> {
+    return await this.page;
+  }
 }
