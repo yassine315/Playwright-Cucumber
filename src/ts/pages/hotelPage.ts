@@ -47,7 +47,7 @@ export class HotelPage {
     const navigationBarZIndex = await this.getZIndex(this.navigationBar);
     const overlayZIndex = await this.getZIndex(this.bookingEngineOverlay);
 
-    console.log(`Signup z-index: ${navigationBarZIndex}, Overlay z-index: ${overlayZIndex}`);
+    console.log(`navigationBar z-index: ${navigationBarZIndex}, Overlay z-index: ${overlayZIndex}`);
 
     // Vérifie si `navigationBar` est recouvert en comparant les positions
     const isOverlapping =
@@ -57,11 +57,11 @@ export class HotelPage {
       navigationBarBox.y + navigationBarBox.height > overlayBox.y;
 
     if (isOverlapping && overlayZIndex >= navigationBarZIndex) {
-      console.log('Signup is hidden by the overlay.');
+      console.log('navigationBar is hidden by the overlay.');
       return false;
     }
 
-    console.log('Signup is visible.');
+    console.log('navigationBar is visible.');
     return true;
   }
 

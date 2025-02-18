@@ -7,18 +7,18 @@ import { chromium } from '@playwright/test';
 let hotelPage : HotelPage;
 Before(async function () {
   const browser = await chromium.launch( {
-    // headless: false
+    headless: false
   });
   const context = await browser.newContext();
   const page = await context.newPage();
   hotelPage = new HotelPage(page);
 })
 
-Given('I am on the hotel page', async function () {
+Given('I am on the hotel page', {timeout:10000}, async function () {
     await hotelPage.visit()
   });
 
-When('I scroll {string} on the page', async function (direction) {
+When('I scroll {string} on the page',{timeout:10000}, async function (direction) {
   console.log("direction : ", direction)
   if(direction === "down")
     await hotelPage.scrollDown()
@@ -28,7 +28,7 @@ When('I scroll {string} on the page', async function (direction) {
   }
   });
 
-Then('the hotel navigation should {string} be displayed', async function (visibilite) {
+Then('the hotel navigation should {string} be displayed',{timeout:10000}, async function (visibilite) {
     console.log("visibilite : ", visibilite)
   if(visibilite === "not")
     await hotelPage.navigationNotVisible()
