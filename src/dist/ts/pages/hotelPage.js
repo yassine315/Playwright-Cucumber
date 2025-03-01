@@ -61,4 +61,28 @@ export class HotelPage {
     async scrollUp() {
         await this.page.evaluate(() => window.scrollBy(0, -window.innerHeight));
     }
+    async putDestination(destination) {
+        for (const char of destination) {
+            await this.page.type('input[name="search.destination.userlang"]', char);
+            await this.page.waitForTimeout(100); // Petite pause pour chaque frappe
+        }
+    }
+    async selectDestination() {
+        await this.page.waitForSelector('ul#destinationSuggest', { timeout: 5000 });
+        await this.page.click('ul#destinationSuggest li:first-child');
+    }
+    async addDate(checkin, checkout) {
+        await this.page.click('input.ads-date-picker__input-start');
+        // Attendre que le calendrier soit visible
+        await this.page.waitForSelector('.dp__calendar');
+        // Sélectionner la date de début (25 mars 2025)
+        const startDate = this.page.locator('div[id="' + checkin + '"]');
+        await startDate.nth(0).click();
+        // Sélectionner la date de fin (29 mars 2025)
+        const endDate = this.page.locator('div[id="' + checkout + '"]');
+        await endDate.nth(0).click();
+    }
+    async search() {
+        await this.page.click('button[aria-label="Search for a destination or hotel name"]');
+    }
 }

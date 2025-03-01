@@ -1,8 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
-import {Given } from '@cucumber/cucumber'; 
 
 export class HotelPage {
-  private page: Page;
+  public page: Page;
   private navigationBar: Locator;
   private signup: Locator;
   private bookingEngineOverlay: Locator;
@@ -33,6 +32,8 @@ export class HotelPage {
     console.log(isVisible);
     return await expect(isVisible).toBeFalsy();
   }
+
+
 
   // Vérifie si l'élément `navigationBar` est visible en comparant le z-index de `signup` et de `bookingEngineOverlay`
   async isElementVisibleBasedOnZIndexAndPosition(): Promise<boolean> {
@@ -82,5 +83,36 @@ export class HotelPage {
   // Méthode pour scroller vers le haut
   async scrollUp(): Promise<void> {
     await this.page.evaluate(() => window.scrollBy(0, -window.innerHeight));
+  }
+
+  async putDestination(destination:string): Promise<void> {
+    for (const char of destination) {
+      await this.page.type('input[name="search.destination.userlang"]', char);
+      await this.page.waitForTimeout(100); // Petite pause pour chaque frappe
+    }
+  }
+
+  async selectDestination(): Promise<void> {
+    await this.page.waitForSelector('ul#destinationSuggest', { timeout: 5000 });
+    await this.page.click('ul#destinationSuggest li:first-child');
+  }
+
+  async addDate(checkin:string, checkout:string): Promise<void> {
+    await this.page.click('input.ads-date-picker__input-start');
+
+    // Attendre que le calendrier soit visible
+    await this.page.waitForSelector('.dp__calendar');
+
+    // Sélectionner la date de début (25 mars 2025)
+    const startDate = this.page.locator('div[id="'+checkin+'"]');
+    await startDate.nth(0).click();
+
+    // Sélectionner la date de fin (29 mars 2025)
+    const endDate = this.page.locator('div[id="'+checkout+'"]');
+    await endDate.nth(0).click();
+  }
+
+  async search(): Promise<void> {
+    await this.page.click('button[aria-label="Search for a destination or hotel name"]');
   }
 }
