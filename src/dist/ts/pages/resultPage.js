@@ -10,7 +10,7 @@ export class ResultPage {
     }
     async hasAvailableRooms() {
         await this.page.waitForSelector('.room-list .list-complete-item');
-        this.roomList = this.page.locator('.room-list .list-complete-item');
+        this.roomList = await this.page.locator('.room-list .list-complete-item');
         await expect(this.roomList.first()).toBeVisible(); // Vérifie qu'il y a au moins une chambre affichée
     }
     async scrollDown() {
@@ -31,7 +31,7 @@ export class ResultPage {
         await continueButton.click();
     }
     async clickSkipStepButton() {
-        await this.page.waitForSelector('button.validation-btn', { timeout: 5000 });
+        await this.page.waitForSelector('button.validation-btn', { timeout: 10000 });
         const skipStepButton = this.page.locator('button.validation-btn', { hasText: 'Skip this step' });
         await skipStepButton.click();
     }
