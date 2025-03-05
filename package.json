@@ -7,7 +7,8 @@
   "scripts": {
     "clean": "rimraf src/dist",
     "build": "npm run clean && tsc",
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "report:html": "node generate-report.js"
   },
   "keywords": [],
   "author": "",
