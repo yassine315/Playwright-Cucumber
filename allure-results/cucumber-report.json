@@ -1,0 +1,68 @@
+[
+  {
+    "description": "  As a user visiting the hotel page\n  I want the hotel navigation to behave based on my scroll direction\n  So that my browsing experience is intuitive",
+    "elements": [
+      {
+        "description": "",
+        "id": "hotel-page-navigation-visibility;navigation-visible-when-scrolling-up",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "Navigation visible when scrolling up",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "I am on the hotel page",
+            "match": {
+              "location": "file:/Users/mac/Documents/Visuel-Studio/cucumber-playwright/src/target/steps/steps.js:73"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7183652000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I scroll up on the page",
+            "match": {
+              "location": "file:/Users/mac/Documents/Visuel-Studio/cucumber-playwright/src/target/steps/steps.js:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2307380401
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the hotel navigation should be displayed",
+            "match": {
+              "location": "file:/Users/mac/Documents/Visuel-Studio/cucumber-playwright/src/target/steps/steps.js:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1712919527
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@scrollUp",
+            "line": 12
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "hotel-page-navigation-visibility",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Hotel page navigation visibility",
+    "tags": [],
+    "uri": "features/scroll.feature"
+  }
+]

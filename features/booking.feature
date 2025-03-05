@@ -1,5 +1,6 @@
 Feature: Hotel Room Booking
 
+  @book
   Scenario: Search for a hotel and book a room
     Given I am on the hotel booking homepage
     When I search for a hotel with the destination "ibis Paris"

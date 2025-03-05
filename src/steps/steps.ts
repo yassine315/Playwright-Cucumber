@@ -1,9 +1,9 @@
 import {Given, When, Then } from '@cucumber/cucumber'; 
-import { HotelPage } from './pages/hotelPage.js';
+import { HotelPage } from '../pom/hotelPage.js';
 import { chromium } from '@playwright/test';
-import { ResultPage } from './pages/resultPage.js';
-import { CheckoutPage } from './pages/checkoutPage.js';
-import { PaymentPage } from './pages/paiementPage.js';
+import { ResultPage } from '../pom/resultPage.js';
+import { CheckoutPage } from '../pom/checkoutPage.js';
+import { PaymentPage } from '../pom/paiementPage.js';
 
 const browser = await chromium.launch( {
   headless: false
@@ -85,4 +85,29 @@ Then('I am on the payment Page', {timeout: 10000}, async function() {
   paymentPage = new PaymentPage(page)
   await paymentPage.isPaymentPage();
 })
+
+
+// scroll steps
+
+
+Given('I am on the hotel page', {timeout:10000}, async function () {
+  await hotelPage.visit()
+});
+
+When('I scroll down on the page',{timeout:10000}, async function () {
+  await hotelPage.scrollDown()
+});
+
+Then('the hotel navigation should be displayed',{timeout:10000}, async function () {
+  await hotelPage.navigationVisible()
+});
+
+When('I scroll up on the page',{timeout:10000}, async function () {
+    await hotelPage.scrollDown()
+    await hotelPage.scrollUp()
+  });
+  
+  Then('the hotel navigation should not be displayed',{timeout:10000}, async function () {
+    await hotelPage.navigationNotVisible()
+  });
 

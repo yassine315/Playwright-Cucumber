@@ -1,8 +1,9 @@
 {
     "default": {
+        "format": ["json:allure-results/cucumber-report.json"],
         "formatOptions": {
             "snippetInterface": "synchronous"
         },
-        "import" : ["src/dist/*"]
+        "import" : ["src/target/*"]
     }
 }
